@@ -17,6 +17,9 @@ body {
     margin-left: -10px;
     margin-right: -10px;
     margin-top: -10px;
+    left: 0;
+    right: 0;
+    top: 0;
 }
 
 .stats-container {
@@ -78,4 +81,5 @@ button {
     padding: 1%;
     margin: 1%;
     border-radius: 7px;
+    cursor: pointer;
 }
