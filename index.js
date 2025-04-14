@@ -51,7 +51,7 @@ function addGamesToPage(games) {
             <p>${games[i].description}</p>
             <div class="progressBar">
                 <div class="totalProgress" style="width:${games[i].pledged / games[i].goal * 100}%">
-                    $${games[i].pledged}&nbsp;/&nbsp;$${games[i].goal}
+                    $${games[i].pledged.toLocaleString()}&nbsp;/&nbsp;$${games[i].goal.toLocaleString()}
                 </div>
             </div>
             <p>Backers: ${games[i].backers}</p>
@@ -174,17 +174,17 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 
 // use destructuring and the spread operator to grab the first and second games
 let [firstGame, secondGame, ...otherGames] = sortedGames;
-let {name: topName, desc1, pl1, goal1, bkrs1, img1} = firstGame; 
-let {name: runnerUpName, desc2, pl2, goal2, bkrs2, img2} = secondGame;
+let {name: topName, desc1, pledged: pl1, goal: goal1, bkrs1, img1} = firstGame; 
+let {name: runnerUpName, desc2, pledged: pl2, goal: goal2, bkrs2, img2} = secondGame;
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
 let topPledgeGame = document.createElement('p');
-topPledgeGame.innerHTML = `<p>${topName}</p>`;
+topPledgeGame.innerHTML = `<p>${topName}</p> <p>$${pl1.toLocaleString()}&nbsp;/&nbsp;$${goal1.toLocaleString()}</p>`;
 firstGameContainer.appendChild(topPledgeGame);
 
 // do the same for the runner up item
 let runnerPledgeGame = document.createElement('p');
-runnerPledgeGame.innerHTML = `<p>${runnerUpName}</p>`;
+runnerPledgeGame.innerHTML = `<p>${runnerUpName}</p> <p>$${pl2.toLocaleString()}&nbsp;/&nbsp;$${goal2.toLocaleString()}</p>`;
 secondGameContainer.appendChild(runnerPledgeGame);
 
 
