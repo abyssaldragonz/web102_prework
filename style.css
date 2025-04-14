@@ -3,6 +3,7 @@
 body {
     font-family: 'Cabin';
     background-color: #758190;
+    margin: 2rem;
 }
 
 #tentacles {
@@ -14,9 +15,10 @@ body {
     background-color: lightblue;
     padding: 1%;
     align-items: center;
-    margin-left: -10px;
-    margin-right: -10px;
-    margin-top: -10px;
+    position: sticky;
+    margin-left: -2rem;
+    margin-right: -2rem;
+    margin-top: -2rem;
     left: 0;
     right: 0;
     top: 0;
@@ -25,6 +27,7 @@ body {
 .stats-container {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .stats-container:hover {
@@ -37,7 +40,8 @@ body {
     border-radius: 7px;
     padding: 1%;
     margin: 1%;
-    width: 100%;
+    flex-grow: 1;
+    width: fit-content;
     text-align: center;
 }
 
@@ -82,4 +86,21 @@ button {
     margin: 1%;
     border-radius: 7px;
     cursor: pointer;
+}
+
+.progressBar {
+    height: 1rem;
+    width: 75%;
+    background-color: #a8b0bc;
+    border: solid #a8b0bc 0.15rem;
+    border-radius: 5px;
+    justify-self: center;
+}
+
+.totalProgress {
+    height: 1rem;
+    max-width: 100%;
+    background-color: lightblue;
+    border-radius: 5px;
+    text-align: left;
 }

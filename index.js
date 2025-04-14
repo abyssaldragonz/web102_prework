@@ -27,7 +27,11 @@ const gamesContainer = document.getElementById("games-container");
 
 // create a function that adds all data from the games array to the page
 function addGamesToPage(games) {
-
+        if (games.length == 0) {
+            let noGamesFound = document.createElement('h2');
+            noGamesFound.innerText = "NO GAMES FOUND!";
+            gamesContainer.appendChild(noGamesFound);
+        }
     // loop over each item in the data
         for (let i = 0; i < games.length; i++) {
 
@@ -45,6 +49,11 @@ function addGamesToPage(games) {
             <img class="game-img" src=${games[i].img} />
             <h2>${games[i].name}</h2>
             <p>${games[i].description}</p>
+            <div class="progressBar">
+                <div class="totalProgress" style="width:${games[i].pledged / games[i].goal * 100}%">
+                    $${games[i].pledged}&nbsp;/&nbsp;$${games[i].goal}
+                </div>
+            </div>
             <p>Backers: ${games[i].backers}</p>
             `;
 
@@ -99,7 +108,7 @@ function filterUnfundedOnly() {
 
     // use the function we previously created to add the unfunded games to the DOM
     addGamesToPage(unfundedGames);
-    console.log(unfundedGames.length);
+    // console.log(unfundedGames.length);
 }
 
 // show only games that are fully funded
@@ -111,7 +120,7 @@ function filterFundedOnly() {
 
     // use the function we previously created to add unfunded games to the DOM
     addGamesToPage(fundedGames);
-    console.log(fundedGames.length);
+    // console.log(fundedGames.length);
 }
 
 // show all games
@@ -164,7 +173,42 @@ const sortedGames =  GAMES_JSON.sort( (item1, item2) => {
 });
 
 // use destructuring and the spread operator to grab the first and second games
+let [firstGame, secondGame, ...otherGames] = sortedGames;
+let {name: topName, desc1, pl1, goal1, bkrs1, img1} = firstGame; 
+let {name: runnerUpName, desc2, pl2, goal2, bkrs2, img2} = secondGame;
 
 // create a new element to hold the name of the top pledge game, then append it to the correct element
+let topPledgeGame = document.createElement('p');
+topPledgeGame.innerHTML = `<p>${topName}</p>`;
+firstGameContainer.appendChild(topPledgeGame);
 
 // do the same for the runner up item
+let runnerPledgeGame = document.createElement('p');
+runnerPledgeGame.innerHTML = `<p>${runnerUpName}</p>`;
+secondGameContainer.appendChild(runnerPledgeGame);
+
+
+/************************************************************
+ * BONUS
+ * Search Function
+ */
+
+// search
+const searchBtn = document.getElementById("searchButton");
+let searchInput = document.getElementById("searchGame");
+
+function searchForGame() {    
+    let filterSearch = GAMES_JSON.filter((game) => { return game.name.toLowerCase().includes(searchInput.value);})
+    deleteChildElements(gamesContainer);
+    addGamesToPage(filterSearch);
+}
+
+searchBtn.addEventListener('click', searchForGame);
+
+// when pressing enter key, simulate a button press and search for input
+searchInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        searchBtn.click();
+    }
+});
